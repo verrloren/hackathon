@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 // import { Space_Grotesk } from 'next/font/google'
 
 const actor = Poppins({
-  weight: "400", // if single weight, otherwise you use array like [400, 500, 700],
+  weight: ["300", "400", "500", "600", "700", "800", "900"], // if single weight, otherwise you use array like [400, 500, 700],
   style: "normal", // if single style, otherwise you use array like ['normal', 'italic']
   subsets: ["latin"],
 });

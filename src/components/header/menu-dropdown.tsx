@@ -2,15 +2,97 @@
 
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import { GoGraph } from "react-icons/go";
+import { Moon, Sun } from "lucide-react";
+import { IoIosLogIn } from "react-icons/io";
+import { useEffect, useRef } from "react";
+import useMenuDropdown from "@/hooks/useMenuDropdown";
+import { dropdownVariants, itemVariants } from "@/lib/motion-variants";
 
 export function MenuDropdown() {
+  const { setTheme, theme } = useTheme();
   const router = useRouter();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const menuDropdown = useMenuDropdown();
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      menuDropdown.onClose();
+      menuDropdown.setClosedByOutsideClick(true);
+    }
+  };
+
+  useEffect(() => {
+    if (menuDropdown.isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [menuDropdown.isOpen]);
+
+
 
   return (
-    <div className="absolute top-[50%] right-0 w-32 h-40 bg-[#070707]/90 backdrop-blur-lg rounded-xl border border-border flex justify-center items-center flex-col">
-      <Button className="w-full bg-transparent text-neutral-200 hover:text-neutral-50 transition-colors hover:bg-transparent" onClick={() => router.push("/overview")}>Overview</Button>
-      <Button className="w-full bg-transparent text-neutral-200 hover:text-neutral-50 transition-colors hover:bg-transparent">Toggle theme</Button>
-      <Button className="w-full bg-transparent text-neutral-200 hover:text-neutral-50 transition-colors hover:bg-transparent" onClick={() => router.push("/login")}>Login</Button>
-    </div>
+    <AnimatePresence>
+      {menuDropdown.isOpen && (
+        <motion.div
+          initial="closed"
+          animate="open"
+          exit="closed"
+          variants={dropdownVariants}
+          ref={dropdownRef}
+          className="absolute top-[50%] right-0 w-40 h-auto pb-4 pt-10 bg-white/25 dark:bg-[#070707]/90 backdrop-blur-lg origin-top rounded-xl border border-border flex justify-start items-center flex-col shadow-sm"
+        >
+          <motion.div className="w-full" variants={itemVariants}>
+            <Button
+              className="w-full bg-transparent text-textGrayDark dark:text-textGray  
+							dark:hover:text-white hover:text-neutral-950 transition-colors hover:bg-transparent 
+							shadow-none gap-x-2 justify-start ml-3"
+              onClick={() => {
+                router.push("/overview");
+                menuDropdown.onClose();
+              }}
+            >
+              <GoGraph size="14" className="text-neutral-400" /> Overview
+            </Button>
+          </motion.div>
+
+          <motion.div className="w-full" variants={itemVariants}>
+            <Button
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              className="w-full bg-transparent text-textGrayDark dark:text-textGray  
+							dark:hover:text-white hover:text-neutral-900 transition-colors hover:bg-transparent 
+							shadow-none gap-x-2 justify-start ml-3"
+            >
+              {theme === "light" ? (
+                <Moon size="14" className="text-neutral-400" />
+              ) : (
+                <Sun className="text-neutral-400" size="14" />
+              )}
+              {theme === "light" ? "Dark Mode" : "Light Mode"}
+            </Button>
+          </motion.div>
+
+          <motion.div className="w-full" variants={itemVariants}>
+            <Button
+              className="w-full bg-transparent text-textGrayDark dark:text-textGray  
+							dark:hover:text-white hover:text-neutral-900 transition-colors hover:bg-transparent 
+							shadow-none gap-x-2 justify-start ml-3"
+              onClick={() => router.push("/login")}
+            >
+              <IoIosLogIn className="text-neutral-400" size="14" />
+              Login
+            </Button>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
