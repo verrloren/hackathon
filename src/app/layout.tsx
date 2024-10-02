@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
+// import { Actor } from 'next/font/google'
+import { Poppins } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
+// import { DM_Sans } from 'next/font/google'
+// import { Outfit } from 'next/font/google'
+// import { Space_Grotesk } from 'next/font/google'
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const actor = Poppins({
+  weight: "400", // if single weight, otherwise you use array like [400, 500, 700],
+  style: "normal", // if single style, otherwise you use array like ['normal', 'italic']
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -25,10 +25,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={actor.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
