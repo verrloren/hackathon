@@ -4,7 +4,6 @@ import { MenuNavbar } from "./menu-navbar";
 import { NotificationNavbar } from "./notification-navbar";
 import { ProfileImageNavbar } from "./profile-image-navbar";
 import { MenuDropdown } from "@/components/header/menu-dropdown";
-import { Search } from "./search";
 
 import useMenuDropdown from "@/hooks/useMenuDropdown";
 import useNotificationDropdown from "@/hooks/useNotificationDropdown";
@@ -30,7 +29,7 @@ function Header() {
       <header className="w-full z-50 relative h-full bg-white/40 dark:bg-[#070707]/95 backdrop-blur-lg border border-border rounded-full">
         <div className="w-full h-full px-6 flex items-center justify-between">
           <Logo />
-          <Search />
+          {/* <Search /> */}
           <div className="flex flex-row gap-x-3 items-center">
             <NotificationNavbar />
 						{session && <ProfileImageNavbar />}

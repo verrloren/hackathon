@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import ListingCard from "./listing-card";
 import { listings } from "@/lib/data";
-import Container from "./container";
 
 type HotelData = {
   title: string;

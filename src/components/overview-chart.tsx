@@ -8,6 +8,8 @@ import { ResponsiveLine } from '@nivo/line'
 // no chart will be rendered.
 // website examples showcase many properties,
 // you'll often use just a few of them.
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const OverviewChart = ({ data /* see data tab */ }: any) => (
     <ResponsiveLine
         data={data}

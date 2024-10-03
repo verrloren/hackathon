@@ -3,7 +3,6 @@
 import usePreviewModal from "@/hooks/use-preview-modal";
 import Modal from "./ui/modal";
 import Image from "next/image";
-import Container from "./container";
 import OverviewChart from "./overview-chart";
 import { overviewChartData } from "@/lib/data";
 

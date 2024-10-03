@@ -2,8 +2,10 @@ import { create } from "zustand";
 
 interface PrewiewModalStore {
 	isOpen: boolean;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	data?: any;
-	onOpen: (data) => void;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onOpen: (data: any) => void;
 	onClose: () => void;
 }
 
