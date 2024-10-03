@@ -1,18 +1,19 @@
-import LoginForm from "@/components/login/login-form";
+import LoginForm from "@/components/authUI/login-form";
 import Link from "next/link";
-
-
+import { Suspense } from "react";
 
 export default function LoginPage() {
 	return (
 		<main className="w-full h-screen relative flex flex-col justify-center items-center">
 		<h1
-			className="font-semibold text-7xl text-neutral-100 mb-12"
+			className="font-semibold lg:text-8xl text-7xl text-neutral-100 mb-12"
 		>
-			Sign in
+			Welcome
 		</h1>
 
-		<LoginForm />
+		<Suspense>
+			<LoginForm />
+		</Suspense>
 
 		<Link 
 	className="fixed text-center bottom-12 font-semibold text-base text-neutral-600

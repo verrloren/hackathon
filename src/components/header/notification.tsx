@@ -1,15 +1,13 @@
 'use client'
 
-import { AiOutlineExclamation } from "react-icons/ai"
+import { ExclamationMark } from "../ui/exclamation-mark"
 
 // interface NotificationClientProps {}
 
 export function Notification() {
 	return (
 		<>
-		<div className="w-6 h-6 flex justify-center items-center rounded-full bg-red-600">
-		<AiOutlineExclamation size="14" className="text-neutral-50" />
-	</div>
+		<ExclamationMark />
 		<p className="text-xs font-normal">Price is invalid</p>
 		</>
 	)

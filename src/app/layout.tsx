@@ -3,6 +3,7 @@ import "./globals.css";
 // import { Actor } from 'next/font/google'
 import { Poppins } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import ToasterProvider from "@/providers/toaster-provider";
 // import { DM_Sans } from 'next/font/google'
 // import { Outfit } from 'next/font/google'
 // import { Space_Grotesk } from 'next/font/google'
@@ -26,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={actor.className}>
+				<ToasterProvider />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
