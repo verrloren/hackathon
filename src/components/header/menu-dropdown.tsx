@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "next-themes";
@@ -10,15 +9,23 @@ import { IoIosLogIn } from "react-icons/io";
 import { useEffect, useRef } from "react";
 import useMenuDropdown from "@/hooks/useMenuDropdown";
 import { dropdownVariants, itemVariants } from "@/lib/motion-variants";
+import { signOut } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import {  useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 export function MenuDropdown() {
+  const { data: session } = useSession();
   const { setTheme, theme } = useTheme();
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const menuDropdown = useMenuDropdown();
 
   const handleClickOutside = (event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
       menuDropdown.onClose();
       menuDropdown.setClosedByOutsideClick(true);
     }
@@ -34,10 +41,8 @@ export function MenuDropdown() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [menuDropdown.isOpen]);
-
-
 
   return (
     <AnimatePresence>
@@ -48,7 +53,7 @@ export function MenuDropdown() {
           exit="closed"
           variants={dropdownVariants}
           ref={dropdownRef}
-          className="absolute top-[50%] right-0 w-40 h-auto pb-4 pt-10 bg-white/25 dark:bg-[#070707]/90 backdrop-blur-lg origin-top rounded-xl border border-border flex justify-start items-center flex-col shadow-sm"
+          className="absolute top-[50%] right-0 w-40 h-auto pb-4 pt-10 -z-10 bg-white/25 dark:bg-[#070707]/90 backdrop-blur-lg origin-top rounded-xl border border-border flex justify-start items-center flex-col shadow-sm"
         >
           <motion.div className="w-full" variants={itemVariants}>
             <Button
@@ -60,7 +65,7 @@ export function MenuDropdown() {
                 menuDropdown.onClose();
               }}
             >
-              <GoGraph size="14" className="text-neutral-400" /> Overview
+              <GoGraph size="14" className="text-neutral-800 dark:text-neutral-400" /> Overview
             </Button>
           </motion.div>
 
@@ -72,24 +77,41 @@ export function MenuDropdown() {
 							shadow-none gap-x-2 justify-start ml-3"
             >
               {theme === "light" ? (
-                <Moon size="14" className="text-neutral-400" />
+                <Moon size="14" className="text-neutral-800 dark:text-neutral-400" />
               ) : (
-                <Sun className="text-neutral-400" size="14" />
+                <Sun className="text-neutral-800 dark:text-neutral-400" size="14" />
               )}
               {theme === "light" ? "Dark Mode" : "Light Mode"}
             </Button>
           </motion.div>
 
           <motion.div className="w-full" variants={itemVariants}>
-            <Button
-              className="w-full bg-transparent text-textGrayDark dark:text-textGray  
+              {session ? (
+                <Button
+                  className="w-full bg-transparent text-textGrayDark dark:text-textGray  
+								dark:hover:text-white hover:text-neutral-900 transition-colors hover:bg-transparent 
+								shadow-none gap-x-2 justify-start ml-3"
+                  onClick={() => {
+                    signOut().then(() => toast.success("Logged out"));
+                    menuDropdown.onClose();
+                  }}
+                >
+                  <IoIosLogIn className="text-neutral-800 dark:text-neutral-400" size="14" />
+                  Log out
+                </Button>
+              ) : (
+                <Button
+                  className="w-full bg-transparent text-textGrayDark dark:text-textGray  
 							dark:hover:text-white hover:text-neutral-900 transition-colors hover:bg-transparent 
 							shadow-none gap-x-2 justify-start ml-3"
-              onClick={() => router.push("/login")}
-            >
-              <IoIosLogIn className="text-neutral-400" size="14" />
-              Login
-            </Button>
+                  onClick={() => router.push("/auth/login")}
+                >
+                  <IoIosLogIn className="text-neutral-400" size="14" />
+                  Login
+                </Button>
+              )}
+
+          
           </motion.div>
         </motion.div>
       )}

@@ -17,19 +17,18 @@ import { FormError } from "./form-error";
 import { FormSuccess } from "./form-success";
 import { ExclamationMark } from "../ui/exclamation-mark";
 import { RegisterSchema } from "@/schemas";
+import { register } from "@/action/register";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 
 
 export default function RegisterForm() {
-  // const searchParams = useSearchParams();
-  // const urlError =
-  // searchParams.get("error") === "OAuthAccountNotLinked"
-  // 	? "Email already used with different account!"
-  // : "";
 
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, setTransition] = useTransition();
+	const router = useRouter();
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -40,31 +39,31 @@ export default function RegisterForm() {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof RegisterSchema>) => {
+  const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     setError("");
-    setSuccess("");
+		setSuccess("");
 
     setTransition(() => {
-      //data send to server
-      console.log(data);
-			// register(values)
-			// 	//data received from server
-			// 	.then((data) => {
-			// 		setError(data.error)
-			// 		setSuccess(data.success)
-			// 	})
-			// 	.finally(() => {
-			// 		form.reset()
-			// 		router.push('/auth/login')
-			// 	})
-    });
+			//data send to server
+			register(values)
+				//data received from server
+				.then((data) => {
+					setError(data.error)
+					setSuccess(data.success)
+					router.push("/auth/login")
+					toast.success("Account created successfully!")
+				})
+				.catch((error) => {
+					setError(error)			
+		})
+		})
   };
   // "bg-background rounded-full pl-4 text-base border-border text-textGray"
   return (
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="w-[20rem] md:w-[30rem] flex justify-center flex-col gap-y-6">
+          <div className="w-[20rem] md:w-[25rem] xl:w-[30rem] flex justify-center flex-col gap-y-6">
 
             <FormField
               control={form.control}
@@ -145,7 +144,7 @@ export default function RegisterForm() {
               className="w-full rounded-full h-12 text-base dark:hover:bg-neutral-400 mt-4"
               type="submit"
             >
-              Log in
+              Register
             </Button>
           </div>
         </form>

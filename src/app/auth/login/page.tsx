@@ -18,7 +18,7 @@ export default function LoginPage() {
 		<Link 
 	className="fixed text-center bottom-12 font-semibold text-base text-neutral-600
 		hover:text-neutral-400 transition-colors duration-300 " 
-		href="/register">
+		href="/auth/register">
 			create an account
 		</Link>
 

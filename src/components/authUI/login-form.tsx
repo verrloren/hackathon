@@ -17,16 +17,20 @@ import { FormError } from "./form-error";
 import { FormSuccess } from "./form-success";
 import { ExclamationMark } from "../ui/exclamation-mark";
 import { LoginSchema } from "@/schemas";
+// import { LoginButton } from "./login-button";
+import { useRouter, useSearchParams } from "next/navigation";
+import { login } from "@/action/login";
+import toast from "react-hot-toast";
 
 
 
 export default function LoginForm() {
 
-  // const searchParams = useSearchParams();
-  // const urlError =
-  // searchParams.get("error") === "OAuthAccountNotLinked"
-  // 	? "Email already used with different account!"
-  // : "";
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const urlError = searchParams.get("error") === "OAuthAccountNotLinked" 
+	? "Email already used with different account!" 
+	: "";
 
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -40,13 +44,27 @@ export default function LoginForm() {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof LoginSchema>) => {
+  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     setError("");
     setSuccess("");
 
     setTransition(() => {
       //data send to server
-      console.log(data);
+			login(values)
+			//data received from server
+			.then((data) => {
+				setError(data?.error)
+				//TODO: 2factor auth 
+				// setSuccess(data?.success)
+				toast.success("Logged in successfully!")
+				router.push("/")
+			})
+			.catch((error) => {
+				setError(error)
+			})
+			.finally(() => {
+				router.refresh()
+			})
     });
   };
   // "bg-background rounded-full pl-4 text-base border-border text-textGray"
@@ -54,7 +72,7 @@ export default function LoginForm() {
     <>
       <Form {...form}>
         <form className="" onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="w-[20rem] md:w-[30rem] flex justify-center flex-col gap-y-6">
+          <div className="w-[20rem] md:w-[25rem] xl:w-[30rem]  flex justify-center flex-col gap-y-6">
             <FormField
               control={form.control}
               name="email"
@@ -103,7 +121,7 @@ export default function LoginForm() {
               )}
             />
 
-						<FormError message={error} />
+						<FormError message={error || urlError} />
 						<FormSuccess message={success} />
 
             <Button

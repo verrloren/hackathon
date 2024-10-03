@@ -9,21 +9,31 @@ import { Search } from "./search";
 import useMenuDropdown from "@/hooks/useMenuDropdown";
 import useNotificationDropdown from "@/hooks/useNotificationDropdown";
 import { NotificationDropdown } from "./notification-dropdown";
+import { useSession } from "next-auth/react";
 
-export default function Header() {
+function Header() {
 	
   const menuDropdown = useMenuDropdown();
 	const notificationDropdown = useNotificationDropdown();
+  const { data: session } = useSession();
+	// const router = useRouter();
+
+  // // Redirect to login page if not authenticated
+  // if (status === "unauthenticated") {
+  //   router.push("/auth/login");
+  //   return null; // Prevent rendering the component
+  // }
+
 
   return (
-    <div className="relative w-[95%] h-12 mt-4 mx-auto">
-      <header className="w-full relative h-full z-10 bg-white/40 dark:bg-[#070707]/95 backdrop-blur-lg border border-border rounded-full">
+    <div className="relative mt-6 z-50 mx-auto w-[95%] h-16 ">
+      <header className="w-full z-50 relative h-full bg-white/40 dark:bg-[#070707]/95 backdrop-blur-lg border border-border rounded-full">
         <div className="w-full h-full px-6 flex items-center justify-between">
           <Logo />
           <Search />
           <div className="flex flex-row gap-x-3 items-center">
             <NotificationNavbar />
-            <ProfileImageNavbar />
+						{session && <ProfileImageNavbar />}
             <MenuNavbar />
           </div>
         </div>
@@ -33,3 +43,4 @@ export default function Header() {
     </div>
   );
 }
+export default Header

@@ -7,6 +7,6 @@ export function Logo() {
 	const router = useRouter();
 
 	return (
-		<h1 className="text-textGray cursor-pointer hover:text-white transition-colors" onClick={() => router.push('/')}>Complexity</h1>
+		<h1 className="text-neural-800 dark:text-neutral-50 text-2xl cursor-pointer hover:text-white transition-colors" onClick={() => router.push('/')}>Complexity</h1>
 	)
 }
