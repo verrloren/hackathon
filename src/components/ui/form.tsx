@@ -135,7 +135,8 @@ const FormMessage = React.forwardRef<
       htmlFor={id}
       {...props}
     >
-      {error.message}
+			
+      {typeof error.message === "string" ? error.message : "Invalid error message"}
     </LabelPrimitive.Label>
   )
 })
