@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+
 interface PrewiewModalStore {
 	isOpen: boolean;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,101 +1,17 @@
 
-export const listings = [
-	{
-		id: 1,
-		title: "Mariott",
-		numberOfGuests: 2,
-		price: 200,
-		numberOfRooms: 1,
-		url: "https://images.unsplash.com/photo-1634072319894-107e61606191?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-	},
-	{
-		id: 2,
-		title: "Hilton",
-		numberOfGuests: 4,
-		price: 300,
-		numberOfRooms: 2,
-		url: "https://images.unsplash.com/photo-1565031491910-e57fac031c41?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-	},
-	{
-		id: 3,
-		title: "Sheraton",
-		numberOfGuests: 3,
-		price: 250,
-		numberOfRooms: 1,
-		url: "https://images.unsplash.com/photo-1621293954908-907159247fc8?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-	},
-	{
-		id: 4,
-		title: "Hyatt",
-		numberOfGuests: 2,
-		price: 200,
-		numberOfRooms: 1,
-		url: "https://images.unsplash.com/photo-1498503182468-3b51cbb6cb24?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-	},
-	{
-		id: 5,
-		title: "Four Seasons",
-		numberOfGuests: 3,
-		price: 350,
-		numberOfRooms: 2,
-		url: "https://images.unsplash.com/photo-1554009975-d74653b879f1?q=80&w=927&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-	},
-	{
-		id: 6,
-		title: "Ritz Carlton",
-		numberOfGuests: 2,
-		price: 400,
-		numberOfRooms: 2,
-		url: "https://images.unsplash.com/photo-1477120128765-a0528148fed2?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-	},
-	{
-		id: 7,
-		title: "Waldorf Astoria",
-		numberOfGuests: 2,
-		price: 300,
-		numberOfRooms: 1,
-		url: "https://images.unsplash.com/photo-1505577058444-a3dab90d4253?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-	},
-	{
-		id: 8,
-		title: "Westin",
-		numberOfGuests: 2,
-		price: 200,
-		numberOfRooms: 1,
-		url: "https://images.unsplash.com/photo-1505576391880-b3f9d713dc4f?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fGhvdGVsfGVufDB8fDB8fHww"
-	},
-	{
-		id: 9,
-		title: "Intercontinental",
-		numberOfGuests: 2,
-		price: 200,
-		numberOfRooms: 1,
-		url: "https://images.unsplash.com/photo-1616046229478-9901c5536a45?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-	},
-	{
-		id: 10,
-		title: "JW Marriott",
-		numberOfGuests: 2,
-		price: 200,
-		numberOfRooms: 1,
-		url: "https://images.unsplash.com/photo-1616137303871-05ce745f9cdb?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-	},
-	{
-		id: 11,
-		title: "Conrad",
-		numberOfGuests: 2,
-		price: 200,
-		numberOfRooms: 1,
-		url: "https://images.unsplash.com/photo-1618219944342-824e40a13285?q=80&w=927&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-	},
-	{
-		id: 12,
-		title: "Mandarin Oriental",
-		numberOfGuests: 2,
-		price: 200,
-		numberOfRooms: 1,
-		url: "https://images.unsplash.com/photo-1618296778887-7924838508a2?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-	}
+export const urls = [
+	"https://images.unsplash.com/photo-1634072319894-107e61606191?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+	"https://images.unsplash.com/photo-1565031491910-e57fac031c41?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+	"https://images.unsplash.com/photo-1621293954908-907159247fc8?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+	"https://images.unsplash.com/photo-1498503182468-3b51cbb6cb24?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+	"https://images.unsplash.com/photo-1554009975-d74653b879f1?q=80&w=927&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+	"https://images.unsplash.com/photo-1477120128765-a0528148fed2?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+	"https://images.unsplash.com/photo-1505577058444-a3dab90d4253?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+	"https://images.unsplash.com/photo-1505576391880-b3f9d713dc4f?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fGhvdGVsfGVufDB8fDB8fHww",
+	"https://images.unsplash.com/photo-1616046229478-9901c5536a45?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+	"https://images.unsplash.com/photo-1616137303871-05ce745f9cdb?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+	"https://images.unsplash.com/photo-1618219944342-824e40a13285?q=80&w=927&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+	"https://images.unsplash.com/photo-1618296778887-7924838508a2?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 ]
 
 export const overviewChartData = [

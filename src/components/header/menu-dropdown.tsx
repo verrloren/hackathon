@@ -53,7 +53,7 @@ export function MenuDropdown() {
           exit="closed"
           variants={dropdownVariants}
           ref={dropdownRef}
-          className="absolute top-[50%] right-0 w-40 h-auto pb-4 pt-10 -z-10 bg-white/25 dark:bg-[#070707]/90 backdrop-blur-lg origin-top rounded-xl border border-border flex justify-start items-center flex-col shadow-sm"
+          className="absolute top-[50%] right-0 w-40 h-auto pb-4 pt-10 z-10 bg-white/25 dark:bg-[#070707]/90 backdrop-blur-lg origin-top rounded-xl border border-border flex justify-start items-center flex-col shadow-sm"
         >
           <motion.div className="w-full" variants={itemVariants}>
             <Button

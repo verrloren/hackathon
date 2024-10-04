@@ -2,6 +2,6 @@
 
 export function NotificationEmpty() {
 	return (
-		<div>Notification empty</div>
+		<div className="w-32 min-h-8 text-sm">Notification empty</div>
 	)
 }

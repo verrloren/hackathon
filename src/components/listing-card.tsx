@@ -1,28 +1,33 @@
 import { motion } from "framer-motion";
 import {
   Card,
-  // CardContent,
-  // CardDescription,
+  CardDescription,
+  CardFooter,
+
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Image from "next/image";
+// import Image from "next/image";
 import usePreviewModal from "@/hooks/use-preview-modal";
 
 interface ListingCardProps {
-  listing: {
-    title: string;
-    numberOfGuests: number;
+  hotel: {
+    hotel_name: string;
+    room_name: string;
+    meal: string;
     price: number;
-    numberOfRooms: number;
-    url?: string | null;
+    yandex_price: number;
+    yandex_name: string;
+    price_diff: number;
+    percentage_price_diff: number;
+    checkin: string | number | null;
+    checkout: string | number | null;
   };
   index: number;
 }
 
-function ListingCard({ listing, index }: ListingCardProps) {
-
-	const previewModal = usePreviewModal();
+function ListingCard({ hotel, index }: ListingCardProps) {
+  const previewModal = usePreviewModal();
 
   return (
     <motion.div
@@ -39,23 +44,25 @@ function ListingCard({ listing, index }: ListingCardProps) {
       }}
       viewport={{ once: true }}
     >
-      <Card onClick={() => previewModal.onOpen(listing)} className="overflow-hidden cursor-pointer h-64 -z-50 group">
-        <Image
-          fill
-          alt="Listing"
-          src={listing.url ?? ""}
-          className="object-cover h-full w-full z-0
-						group-hover:scale-105 transition rounded-xl brightness-[.85] will-change-auto"
-        />
+      <Card
+        onClick={() => previewModal.onOpen(hotel)}
+        className="overflow-hidden cursor-pointer h-auto -z-50 group"
+      >
+
         <CardHeader>
-          <CardTitle className="z-10 text-3xl mt-40 text-neutral-50">
-            {listing.title}
+          <CardTitle className="z-10 text-2xl text-neutral-900 dark:text-neutral-50">
+					{hotel.hotel_name}
           </CardTitle>
-          {/* <CardDescription className="z-10 text-sm text-slate-300">
-            {listing.numberOfGuests} Guests · {listing.numberOfRooms} Rooms
-          </CardDescription> */}
+          <CardDescription className="z-10 text-sm dark:text-neutral-400 text-neutral-600">
+						<span className="text-neutral-400">{hotel.room_name}</span> <br />
+            {hotel.yandex_name} · {hotel.meal} meal plan
+          </CardDescription>
         </CardHeader>
-        {/* <CardContent className="z-10 text-xl text-neutral-50">{listing.price}$</CardContent> */}
+
+        <CardFooter className="z-10 text-xl dark:text-neutral-50 text-neutral-900 flex flex-col items-start gap-y-4">
+          Our {hotel.price}$ <br /> Yandex price {hotel.yandex_price}$<br /> Difference{" "}
+          <span className="text-sm text-neutral-600 dark:text-neutral-400">{hotel.price_diff}. <br /> Diff is {hotel.percentage_price_diff}%</span>
+        </CardFooter>
       </Card>
     </motion.div>
   );
