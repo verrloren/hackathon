@@ -4,15 +4,11 @@ import Header from "@/components/header/header";
 // import PythonOutput from "@/components/python-output";
 import getHotels from "@/hooks/getHotels";
 import getNotifications from "@/hooks/getNotification";
+import { db } from "@/lib/db";
 import { NotificationProps } from "@/lib/types";
 
 export default async function HomePage() {
 
-
-	const notifications: NotificationProps[] = await getNotifications({
-		id: '',
-		message: '',
-	})
 
 	const hotels = await getHotels({
 		hotel_name: '',
@@ -28,6 +24,20 @@ export default async function HomePage() {
 		checkout: 0,
 		})
 
+	const percentageDiff: number = Math.max(...hotels.map((hotel) => hotel.percentage_price_diff ?? 0));
+	if (percentageDiff > 5) {
+
+		await db.notification.create({
+			//@ts-ignore
+			id: '1',
+			message: 'Price difference is greater than 5%',
+    });
+	}
+
+	const notifications: NotificationProps[] = await getNotifications({
+		id: '',
+		message: '',
+	})
 
 
   return (

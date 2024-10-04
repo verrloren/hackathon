@@ -2,6 +2,9 @@
 import { BsThreeDots } from "react-icons/bs";
 import useMenuDropdown from "@/hooks/useMenuDropdown";
 
+
+
+
 export function MenuNavbar() {
 
   const menuDropdown = useMenuDropdown();
@@ -23,6 +26,7 @@ export function MenuNavbar() {
         className={`cursor-pointer w-6 h-6 text-textGray hover:text-neutral-800 dark:hover:text-white transition-all ${menuDropdown.isOpen ? 'rotate-90' : ''}`}
         onClick={toggleMenu}
       />
+			
     </div>
   );
 }

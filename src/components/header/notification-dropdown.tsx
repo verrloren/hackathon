@@ -145,6 +145,7 @@ export function NotificationDropdown({ notifications }: NotificationDropdownProp
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notificationDropdown.isOpen]);
 
   const dropdownVariants = {

@@ -114,7 +114,7 @@ export default function Header({ notifications }: HeaderProps) {
         <div className="w-full h-full px-6 flex items-center justify-between">
           <Logo />
           <div className="flex flex-row gap-x-3 items-center">
-            <NotificationNavbar />
+            <NotificationNavbar notifications={notifications} />
             {session && <ProfileImageNavbar />}
             <MenuNavbar />
           </div>

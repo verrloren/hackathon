@@ -30,7 +30,7 @@ export default function CardSection({ hotels }: any) {
       });
   }, []);
 
-  if (loading) return <div className="mt-4">Loading...</div>;
+  if (loading) return <div className="text-3xl text-center mt-32">Loading...</div>;
   if (error) return <div>Error: {error}</div>; // Render error as string
   if (hotels.length === 0) return <div className="my-8">No hotels found</div>;
   return (
