@@ -1,10 +1,9 @@
 'use client'
 
 import { PreviewModal } from "@/components/preview-modal";
-import { HotelsParams } from "@/lib/types";
 import { useEffect, useState } from "react"
 
-export default function ModalProvider({ hotel } : { hotel: HotelsParams }) {
+export default function ModalProvider() {
 
 	const [isMounted, setIsMounted] = useState(false)
 
@@ -16,7 +15,7 @@ export default function ModalProvider({ hotel } : { hotel: HotelsParams }) {
 
 	return (
 		<>
-			<PreviewModal hotel={hotel} />
+			<PreviewModal />
 		</>
 	)
 }

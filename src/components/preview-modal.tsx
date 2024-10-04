@@ -21,7 +21,6 @@ export function PreviewModal() {
               <div className="w-full h-[22rem]">
 								<OverviewChart data={overviewChartData} />
 							</div>
-							{/* <div className="w-1/3">prices comparison</div> */}
 						</div>	
           </div>
     </Modal>
