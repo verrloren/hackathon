@@ -6,10 +6,11 @@ import getHotels from "@/hooks/getHotels";
 import getNotifications from "@/hooks/getNotification";
 import { db } from "@/lib/db";
 import { NotificationProps } from "@/lib/types";
+import { auth } from "./auth";
 
 export default async function HomePage() {
 
-
+	const session = await auth();
 	const hotels = await getHotels({
 		hotel_name: '',
 		hotel_id: '',
@@ -28,11 +29,11 @@ export default async function HomePage() {
 	if (percentageDiff > 5) {
 
 		await db.notification.create({
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			//@ts-expect-error
-			id: '1',
-			message: 'Price difference is greater than 5%',
-    });
+			data: {
+				userId: session?.user?.id as string,
+				message: 'Price difference is greater than 5%',
+			}
+		});
 	}
 
 	const notifications: NotificationProps[] = await getNotifications({
