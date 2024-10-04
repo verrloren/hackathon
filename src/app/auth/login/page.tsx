@@ -6,7 +6,7 @@ export default function LoginPage() {
 	return (
 		<main className="w-full h-screen relative flex flex-col justify-center items-center">
 		<h1
-			className="font-semibold lg:text-8xl text-7xl text-neutral-100 mb-12"
+			className="font-semibold lg:text-8xl text-7xl text-neutral-800 dark:text-neutral-100 mb-12"
 		>
 			Welcome
 		</h1>

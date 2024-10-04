@@ -8,7 +8,7 @@ export default function LoginPage() {
 	return (
 		<main className="w-full h-screen relative flex flex-col justify-center items-center">
 		<h1
-			className="font-semibold text-center text-6xl lg:text-7xl text-neutral-100 mb-12"
+			className="font-semibold text-center text-6xl lg:text-7xl text-neutral-800 dark:text-neutral-100 mb-12"
 		>
 			Create an account
 		</h1>
