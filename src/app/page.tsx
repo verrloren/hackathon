@@ -28,7 +28,8 @@ export default async function HomePage() {
 	if (percentageDiff > 5) {
 
 		await db.notification.create({
-			//@ts-ignore
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			//@ts-expect-error
 			id: '1',
 			message: 'Price difference is greater than 5%',
     });
