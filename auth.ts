@@ -2,9 +2,9 @@ import NextAuth from 'next-auth';
 import {PrismaAdapter} from '@auth/prisma-adapter';
 
 import { db } from '@/lib/db';
-import authConfig from '@/app/auth.config';
 import { UserRole } from '@prisma/client';
 import { getUserById } from '@/utils/getUserBy';
+import authConfig from './auth.config';
 
 
 
@@ -16,8 +16,9 @@ export const {
 	} = NextAuth({
 		pages: {
 			//redirect to this url if something goes wrong
+			signOut: "/auth/login",
 			signIn: "/auth/login",
-			error: "/auth/error"
+			error: "/auth/error",
 		},
 		events: {
 			async linkAccount({ user }) {
@@ -30,7 +31,6 @@ export const {
 		callbacks:{
 			//passing token from jwt to session and adding new field with value of token id
 			async session({ token, session }) {
-				console.log({ sessionToken: token })
 
 				//add id to session.user
 				if(token.sub && session.user) {

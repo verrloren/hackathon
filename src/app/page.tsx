@@ -6,11 +6,18 @@ import getHotels from "@/hooks/getHotels";
 import getNotifications from "@/hooks/getNotification";
 import { db } from "@/lib/db";
 import { NotificationProps } from "@/lib/types";
-import { auth } from "./auth";
+import { auth } from "../../auth";
+import { redirect } from "next/navigation";
 
 export default async function HomePage() {
 
 	const session = await auth();
+	const userId = session?.user?.id;
+
+	if (!userId) {
+		redirect('/auth/login')
+	}
+
 	const hotels = await getHotels({
 		hotel_name: '',
 		hotel_id: '',

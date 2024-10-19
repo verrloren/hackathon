@@ -18,20 +18,20 @@ import { FormSuccess } from "./form-success";
 import { ExclamationMark } from "../ui/exclamation-mark";
 import { LoginSchema } from "@/schemas";
 // import { LoginButton } from "./login-button";
-import { useRouter, useSearchParams } from "next/navigation";
-import { login } from "@/action/login";
+import {  useRouter, useSearchParams } from "next/navigation";
+// import { login } from "@/action/login";
 import toast from "react-hot-toast";
+import { getSession, signIn } from "next-auth/react";
 
 
 
 export default function LoginForm() {
 
-	const router = useRouter();
 	const searchParams = useSearchParams();
 	const urlError = searchParams.get("error") === "OAuthAccountNotLinked" 
 	? "Email already used with different account!" 
 	: "";
-
+	const router = useRouter();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, setTransition] = useTransition();
@@ -44,29 +44,38 @@ export default function LoginForm() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    setError("");
-    setSuccess("");
-
-    setTransition(() => {
-      //data send to server
-			login(values)
-			//data received from server
-			.then((data) => {
-				setError(data?.error)
-				//TODO: 2factor auth 
-				// setSuccess(data?.success)
-				toast.success("Logged in successfully!")
-				router.push("/")
-			})
-			.catch((error) => {
-				setError(error)
-			})
-			.finally(() => {
-				router.refresh()
-			})
-    });
-  };
+	const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+		setError("");
+		setSuccess("");
+	
+		setTransition(async () => {
+			try {
+				const result = await signIn("credentials", {
+					email: values.email,
+					password: values.password,
+					redirect: false, // Disable automatic redirect for manual control
+				});
+	
+				if (result?.error) {
+					toast.error("Failed to log in!");
+					setError(result.error);
+					form.reset();
+				} else {
+					setSuccess("Logged in successfully!");
+					toast.success("Logged in successfully!");
+	
+					// Now manually fetch the session and redirect
+					const session = await getSession();
+					if (session) {
+						router.push("/"); // Redirect to main page after session is fetched
+					}
+				}
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			} catch (error: any) {
+				setError(`An error occurred: ${error}`);
+			}
+		});
+	};
   // "bg-background rounded-full pl-4 text-base border-border text-textGray"
   return (
     <>
@@ -80,7 +89,7 @@ export default function LoginForm() {
                 <FormItem>
                   <FormControl>
                     <Input
-											className="bg-background rounded-full pl-6 h-12 text-base border-border text-textGray"
+											className="bg-background transition-colors rounded-full pl-6 h-12 text-base border-border text-textGray"
                       disabled={isPending}
                       type="email"
                       placeholder="email"
@@ -104,7 +113,7 @@ export default function LoginForm() {
                 <FormItem>
                   <FormControl>
                     <Input
-											className="bg-background rounded-full pl-6 h-12  text-base border-border text-textGray"
+											className="bg-background transition-colors rounded-full pl-6 h-12  text-base border-border text-textGray"
                       disabled={isPending}
                       type="password"
                       placeholder="password"

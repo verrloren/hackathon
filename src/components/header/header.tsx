@@ -89,7 +89,6 @@ import { NotificationNavbar } from "./notification-navbar";
 import { ProfileImageNavbar } from "./profile-image-navbar";
 import { MenuNavbar } from "./menu-navbar";
 import { MenuDropdown } from "./menu-dropdown";
-import { useRouter } from "next/navigation";
 import { NotificationProps } from "@/lib/types";
 
 type HeaderProps = {
@@ -98,19 +97,16 @@ type HeaderProps = {
 
 export default function Header({ notifications }: HeaderProps) {
 
-	const router = useRouter();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const menuDropdown = useMenuDropdown();
   const notificationDropdown = useNotificationDropdown();
 
-  if (status === "unauthenticated") {
-    router.push("/auth/login");
-    return null;
-  }
+
 
   return (
-    <div className="relative w-[95%] h-12 mt-4 mx-auto">
-      <header className="w-full relative h-full z-20 bg-white/40 dark:bg-[#070707]/95 backdrop-blur-lg border border-border rounded-full">
+    <div className="sticky top-6 z-20 w-[95%] h-16 mt-4 mx-auto">
+      <header className="w-full sticky shadow-sm h-full z-20 bg-white/40 dark:bg-[#0A0A0A]/90 
+			backdrop-blur-md border border-border rounded-full">
         <div className="w-full h-full px-6 flex items-center justify-between">
           <Logo />
           <div className="flex flex-row gap-x-3 items-center">

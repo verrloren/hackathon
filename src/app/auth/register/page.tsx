@@ -1,10 +1,21 @@
+import { auth } from "../../../../auth";
 import RegisterForm from "@/components/authUI/register-form";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 
 
-export default function LoginPage() {
+export default async function LoginPage() {
+
+	const session = await auth();
+	const userId = session?.user?.id;
+
+	if (userId) {
+		redirect('/')
+	}
+
+
 	return (
 		<main className="w-full h-screen relative flex flex-col justify-center items-center">
 		<h1

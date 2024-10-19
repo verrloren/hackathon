@@ -5,11 +5,17 @@ import { overviewChartData } from "@/lib/data";
 import { NotificationProps } from "@/lib/types";
 import { getNotificationsByUser } from "@/utils/getUserBy";
 // import { getSession } from "next-auth/react";
-import { auth } from "../auth";
+import { auth } from "../../../auth";
+import { redirect } from "next/navigation";
 
 export default async function OverviewPage() {
 
 	const session = await auth();
+	const userId = session?.user?.id;
+
+	if (!userId) {
+		redirect('/auth/login')
+	}
 
 	const notifications: NotificationProps[] = await getNotificationsByUser(session?.user?.id as string)
 

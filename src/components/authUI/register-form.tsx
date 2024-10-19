@@ -50,8 +50,8 @@ export default function RegisterForm() {
 				.then((data) => {
 					setError(data.error)
 					setSuccess(data.success)
-					router.push("/auth/login")
 					toast.success("Account created successfully!")
+					router.push("/auth/login")
 				})
 				.catch((error) => {
 					setError(error)			

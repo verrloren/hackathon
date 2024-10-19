@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 // import Image from "next/image";
 import usePreviewModal from "@/hooks/use-preview-modal";
+import { CardImage } from "./ui/card-image";
 
 interface ListingCardProps {
   hotel: {
@@ -24,9 +25,10 @@ interface ListingCardProps {
     checkout: string | number | null;
   };
   index: number;
+	url: string;
 }
 
-function ListingCard({ hotel, index }: ListingCardProps) {
+function ListingCard({ hotel, index, url }: ListingCardProps) {
   const previewModal = usePreviewModal();
 
   return (
@@ -46,22 +48,25 @@ function ListingCard({ hotel, index }: ListingCardProps) {
     >
       <Card
         onClick={() => previewModal.onOpen(hotel)}
-        className="overflow-hidden cursor-pointer h-auto -z-50 group"
+        className="overflow-hidden cursor-pointer h-auto -z-50 group shadow-none"
       >
+				<div className="relative h-56 w-full">
+					<CardImage key={url} url={url} />
+				</div>
 
         <CardHeader>
           <CardTitle className="z-10 text-2xl text-neutral-900 dark:text-neutral-50">
 					{hotel.hotel_name}
           </CardTitle>
           <CardDescription className="z-10 text-sm dark:text-neutral-400 text-neutral-600">
-						<span className="text-neutral-400">{hotel.room_name}</span> <br />
-            {hotel.yandex_name} · {hotel.meal} meal plan
+						<span className="text-neutral-600 dark:text-neutral-400">{hotel.room_name}</span> <br />
+            {/* {hotel.yandex_name} · {hotel.meal} meal plan */}
           </CardDescription>
         </CardHeader>
 
         <CardFooter className="z-10 text-xl dark:text-neutral-50 text-neutral-900 flex flex-col items-start gap-y-4">
-          Our {hotel.price}$ <br /> Yandex price {hotel.yandex_price}$<br /> Difference{" "}
-          <span className="text-sm text-neutral-600 dark:text-neutral-400">{hotel.price_diff}. <br /> Diff is {hotel.percentage_price_diff}%</span>
+          Ostrovok price: {hotel.price}₽ <br /> Yandex price: {hotel.yandex_price}₽<br />
+          <span className="text-sm text-neutral-600 dark:text-neutral-400">Hotels price diff: {hotel.price_diff} · Diff is {Math.floor(hotel.percentage_price_diff) || 0}%</span>
         </CardFooter>
       </Card>
     </motion.div>

@@ -53,13 +53,13 @@ export function MenuDropdown() {
           exit="closed"
           variants={dropdownVariants}
           ref={dropdownRef}
-          className="absolute top-[50%] right-0 w-40 h-auto pb-4 pt-10 z-10 bg-white/25 dark:bg-[#070707]/90 backdrop-blur-lg origin-top rounded-xl border border-border flex justify-start items-center flex-col shadow-sm"
+          className="absolute top-[50%] right-0 w-44 h-auto pb-4 pt-10 z-10 bg-white/25 dark:bg-[#070707]/90 backdrop-blur-lg origin-top rounded-xl border border-border flex justify-start items-center flex-col shadow-sm"
         >
           <motion.div className="w-full" variants={itemVariants}>
             <Button
               className="w-full bg-transparent text-textGrayDark dark:text-textGray  
 							dark:hover:text-white hover:text-neutral-950 transition-colors hover:bg-transparent 
-							shadow-none gap-x-2 justify-start ml-3"
+							shadow-none gap-x-2 justify-start ml-3 text-base"
               onClick={() => {
                 router.push("/overview");
                 menuDropdown.onClose();
@@ -73,8 +73,8 @@ export function MenuDropdown() {
             <Button
               onClick={() => setTheme(theme === "light" ? "dark" : "light")}
               className="w-full bg-transparent text-textGrayDark dark:text-textGray  
-							dark:hover:text-white hover:text-neutral-900 transition-colors hover:bg-transparent 
-							shadow-none gap-x-2 justify-start ml-3"
+							dark:hover:text-white hover:text-neutral-950 transition-colors hover:bg-transparent 
+							shadow-none gap-x-2 justify-start ml-3 text-base"
             >
               {theme === "light" ? (
                 <Moon size="14" className="text-neutral-800 dark:text-neutral-400" />
@@ -90,7 +90,7 @@ export function MenuDropdown() {
                 <Button
                   className="w-full bg-transparent text-textGrayDark dark:text-textGray  
 								dark:hover:text-white hover:text-neutral-900 transition-colors hover:bg-transparent 
-								shadow-none gap-x-2 justify-start ml-3"
+								shadow-none gap-x-2 justify-start ml-3 text-base"
                   onClick={() => {
                     signOut().then(() => toast.success("Logged out"));
                     menuDropdown.onClose();
@@ -103,7 +103,7 @@ export function MenuDropdown() {
                 <Button
                   className="w-full bg-transparent text-textGrayDark dark:text-textGray  
 							dark:hover:text-white hover:text-neutral-900 transition-colors hover:bg-transparent 
-							shadow-none gap-x-2 justify-start ml-3"
+							shadow-none gap-x-2 justify-start ml-3 text-base"
                   onClick={() => router.push("/auth/login")}
                 >
                   <IoIosLogIn className="text-neutral-400" size="14" />
