@@ -7,9 +7,10 @@ import { overviewChartData } from "@/lib/data";
 
 export function PreviewModal() {
   const previewModal = usePreviewModal();
-  const listing = usePreviewModal((state) => state.data);
+  // const listing = usePreviewModal((state) => state.data);
 
-  if (!listing) return null;
+
+  // if (!listing) return null;
 
   return (
     <Modal open={previewModal.isOpen} onClose={previewModal.onClose}>
