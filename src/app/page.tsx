@@ -5,9 +5,10 @@ import Header from "@/components/header/header";
 import getHotels from "@/hooks/getHotels";
 import getNotifications from "@/hooks/getNotification";
 import { db } from "@/lib/db";
-import { NotificationProps } from "@/lib/types";
+import { Notification } from "@/lib/types";
 import { auth } from "../../auth";
 import { redirect } from "next/navigation";
+import ExpandableCardDemo from '../components/expandable-card-demo-grid';
 
 export default async function HomePage() {
 
@@ -43,7 +44,7 @@ export default async function HomePage() {
 		});
 	}
 
-	const notifications: NotificationProps[] = await getNotifications({
+	const notifications: Notification[] = await getNotifications({
 		id: '',
 		message: '',
 	})
@@ -54,6 +55,8 @@ export default async function HomePage() {
       <Header notifications={notifications} />
 			<Container>
 				<CardSection hotels={hotels} />
+				{/* <ExpandableCardDemo /> */}
+				
 				{/* <PythonOutput /> */}
 			</Container>
     </>

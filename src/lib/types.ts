@@ -1,4 +1,4 @@
-export interface HotelsParams {
+export interface Hotel {
 	hotel_id: string;
 	hotel_name: string;
 	room_name: string;
@@ -12,7 +12,9 @@ export interface HotelsParams {
 	checkout?:	string;
 }
 
-export type NotificationProps = {
-  id: string;
-  message: string;
-};
+export interface Notification {
+	id: string;
+	message: string;
+	type: 'success' | 'error' | 'info';
+	}
+	
