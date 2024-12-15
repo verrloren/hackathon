@@ -10,22 +10,12 @@ import {
 // import Image from "next/image";
 import usePreviewModal from "@/hooks/use-preview-modal";
 import { CardImage } from "./ui/card-image";
+import { Hotel } from "@/lib/types";
 
 interface ListingCardProps {
-  hotel: {
-    hotel_name: string;
-    room_name: string;
-    meal: string;
-    price: number;
-    yandex_price: number;
-    yandex_name: string;
-    price_diff: number;
-    percentage_price_diff: number;
-    checkin: string | number | null;
-    checkout: string | number | null;
-  };
-  index: number;
+  hotel: Hotel;
 	url: string;
+	index: number;
 }
 
 function ListingCard({ hotel, index, url }: ListingCardProps) {
@@ -66,7 +56,7 @@ function ListingCard({ hotel, index, url }: ListingCardProps) {
 
         <CardFooter className="z-10 text-xl dark:text-neutral-50 text-neutral-900 flex flex-col items-start gap-y-4">
           Ostrovok price: {hotel.price}₽ <br /> Yandex price: {hotel.yandex_price}₽<br />
-          <span className="text-sm text-neutral-600 dark:text-neutral-400">Hotels price diff: {hotel.price_diff} · Diff is {Math.floor(hotel.percentage_price_diff) || 0}%</span>
+          <span className="text-sm text-neutral-600 dark:text-neutral-400">Hotels price diff: {hotel.price_diff} · Diff is {Math.floor(hotel.percentage_price_diff ?? 0)}%</span>
         </CardFooter>
       </Card>
     </motion.div>

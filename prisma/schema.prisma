@@ -28,6 +28,7 @@ model User {
 	password			String?
 	role 			    UserRole @default(USER)
 	notifications Notification[]
+  hotels        Hotel[]
 }
 
 model Notification {
@@ -52,4 +53,9 @@ model Hotel {
 	percentage_price_diff 	Float?
 	checkin									Float?
 	checkout								Float?
+
+	createdAt               DateTime @default(now())
+
+  userId        String
+  user          User @relation(fields: [userId], references: [id])
 }

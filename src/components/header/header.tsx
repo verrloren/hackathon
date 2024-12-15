@@ -80,26 +80,26 @@
 
 // src/components/header/header.tsx
 'use client'
-import { useSession } from "next-auth/react";
-import useMenuDropdown from "@/hooks/useMenuDropdown";
-import useNotificationDropdown from "@/hooks/useNotificationDropdown";
-import NotificationDropdown from "@/components/header/notification-dropdown";
+// import { useSession } from "next-auth/react";
+// import useMenuDropdown from "@/hooks/useMenuDropdown";
+// import useNotificationDropdown from "@/hooks/useNotificationDropdown";
+// import NotificationDropdown from "@/components/header/notification-dropdown";
 import { Logo } from "./logo";
-import { NotificationNavbar } from "./notification-navbar";
-import { ProfileImageNavbar } from "./profile-image-navbar";
+// import { NotificationNavbar } from "./notification-navbar";
+// import { ProfileImageNavbar } from "./profile-image-navbar";
 import { MenuNavbar } from "./menu-navbar";
-import { MenuDropdown } from "./menu-dropdown";
-import { NotificationProps } from "@/lib/types";
+// import { MenuDropdown } from "./menu-dropdown";
+// import { NotificationProps } from "@/lib/types";
 
-type HeaderProps = {
-  notifications: NotificationProps[];
-};
+// type HeaderProps = {
+//   notifications: NotificationProps[];
+// };
 
-export default function Header({ notifications }: HeaderProps) {
+export default function Header() {
 
-  const { data: session } = useSession();
-  const menuDropdown = useMenuDropdown();
-  const notificationDropdown = useNotificationDropdown();
+  // const { data: session } = useSession();
+  // const menuDropdown = useMenuDropdown();
+  // const notificationDropdown = useNotificationDropdown();
 
 
 
@@ -110,14 +110,14 @@ export default function Header({ notifications }: HeaderProps) {
         <div className="w-full h-full px-6 flex items-center justify-between">
           <Logo />
           <div className="flex flex-row gap-x-3 items-center">
-            <NotificationNavbar notifications={notifications} />
-            {session && <ProfileImageNavbar />}
+            {/* <NotificationNavbar notifications={notifications} /> */}
+            {/* {session && <ProfileImageNavbar />} */}
             <MenuNavbar />
           </div>
         </div>
       </header>
-      {menuDropdown.isOpen && <MenuDropdown />}
-      {notificationDropdown.isOpen && <NotificationDropdown notifications={notifications} />}
+      {/* {menuDropdown.isOpen && <MenuDropdown />}
+      {notificationDropdown.isOpen && <NotificationDropdown notifications={notifications} />} */}
     </div>
   );
 }

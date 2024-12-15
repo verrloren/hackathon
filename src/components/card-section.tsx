@@ -1,47 +1,37 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useEffect, useState } from "react";
 import ListingCard from "./listing-card";
-import { imgURL } from "@/lib/data";
+import { imgURL, fallbackImage } from "@/lib/data";
+import { useQuery } from "@tanstack/react-query";
+import { Hotel } from "@/lib/types";
+import { getHotelsAction } from "@/modules/hotels/get-hotels-action";
+import { useAuth } from "@/hooks/use-auth";
 
-type HotelData = {
-  title: string;
-  body: string;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function CardSection({ hotels }: any) {
-  const [data, setData] = useState<HotelData>({
-    title: "",
-    body: "",
+export function CardSection() {
+  const { userId, isAuthenticated, isLoading: isAuthLoading } = useAuth();
+  
+  const { data: hotels = [], isLoading: isHotelsLoading, error } = useQuery<Hotel[]>({
+    queryKey: ['hotels', userId],
+    queryFn: () => getHotelsAction(userId),
+    enabled: !!userId && isAuthenticated,
   });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts/1")
-      .then((res) => res.json())
-      .then((val) => {
-        setData(val);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.message); // Convert error to string
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading)
+  if (isAuthLoading || isHotelsLoading) {
     return <div className="text-3xl text-center mt-32">Loading...</div>;
-  if (error) return <div>Error: {error}</div>; // Render error as string
+  }
+  if (error) return <div>Error: {error.toString()}</div>; // Render error as string
   if (hotels.length === 0) return <div className="my-8">No hotels found</div>; 
   return (
     <div
       className="my-8 grid grid-cols-1 -z-50 sm:grid-cols-2
 			md:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-4 gap-4 "
     >
-      {hotels.map((hotel: any, index: number) => (
-				<ListingCard key={data.title} url={imgURL[index]} hotel={hotel} index={2} />
+      {hotels.map((hotel: Hotel, index: number) => (
+				<ListingCard 
+          key={hotel.index} 
+          url={imgURL[index % imgURL.length] || fallbackImage} 
+          hotel={hotel} 
+          index={index} 
+        />
 			))}
 
     </div>

@@ -6,6 +6,7 @@ import ToasterProvider from "@/providers/toaster-provider";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "../../auth";
 import ModalProvider from "@/providers/modal-provider";
+import Providers from "@/components/providers";
 // import localFont from "next/font/local";
 
 
@@ -60,27 +61,23 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-	
-
-	const session = await auth();
+}) {
+  const session = await auth();
 
   return (
-    <html lang="en">
-      <body className={poppins.className}>
-				<ModalProvider />
-        <ToasterProvider />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body suppressHydrationWarning className={poppins.className}>
+        <ThemeProvider>
           <SessionProvider session={session}>
-						{children}
-					</SessionProvider>
+            <Providers>
+              <ModalProvider />
+              <ToasterProvider />
+              {children}
+            </Providers>
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>

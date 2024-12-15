@@ -6,7 +6,6 @@ import authConfig from "./auth.config";
 const { auth } = NextAuth(authConfig)
 
 
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default auth((req): any => {
 
