@@ -9,6 +9,11 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+			fontFamily: {
+        outfit: ['Outfit', 'sans-serif'],
+        raleway: ['Raleway', 'sans-serif'],
+        manrope: ['Manrope', 'sans-serif'],
+			},
   		colors: {
   			background: 'hsl(var(--background))',
   			border: 'hsl(var(--border))',

@@ -22,8 +22,8 @@ import {  useRouter, useSearchParams } from "next/navigation";
 // import { login } from "@/action/login";
 import toast from "react-hot-toast";
 import { getSession, signIn } from "next-auth/react";
-
-
+import { useQueryClient } from "@tanstack/react-query";
+import { hotelsService } from "@/modules/hotels/hotels-service";
 
 export default function LoginForm() {
 
@@ -35,6 +35,8 @@ export default function LoginForm() {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, setTransition] = useTransition();
+  const queryClient = useQueryClient();
+
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -61,14 +63,17 @@ export default function LoginForm() {
 					setError(result.error);
 					form.reset();
 				} else {
-					setSuccess("Logged in successfully!");
-					toast.success("Logged in successfully!");
-	
-					// Now manually fetch the session and redirect
 					const session = await getSession();
-					if (session) {
-						router.push("/"); // Redirect to main page after session is fetched
-					}
+          if (session?.user?.id) {
+            // Prefetch hotels data
+            await queryClient.prefetchQuery({
+              queryKey: hotelsService.queryKeys.list(session.user.id),
+              queryFn: () => hotelsService.getHotels(session.user.id),
+            });
+            
+            toast.success("Logged in successfully!");
+            router.push("/");
+          }
 				}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			} catch (error: any) {

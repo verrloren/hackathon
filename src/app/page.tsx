@@ -13,6 +13,7 @@ import {ExpandableCardDemo} from '../components/expandable-card-demo-grid';
 import { isAuth } from "@/modules/auth/is-auth";
 import { getQueryClient } from "@/shared/get-query-client";
 import { getHotelsAction } from "@/modules/hotels/get-hotels-action";
+import { hotelsActions } from "@/modules/hotels/hotels-actions";
 
 export default async function HomePage() {
 
@@ -22,10 +23,10 @@ export default async function HomePage() {
 
 	const queryClient = getQueryClient();
 
-	await queryClient.prefetchQuery({
-		queryKey: ['hotels', userId],
-		queryFn: () => getHotelsAction(userId)
-	})
+	// await queryClient.prefetchQuery({
+	// 	queryKey: [hotelsActions.baseKey, userId],
+	// 	queryFn: () => getHotelsAction(userId)
+	// })
 
 
 	// const percentageDiff: number = Math.max(...hotels.map((hotel) => hotel.percentage_price_diff ?? 0));

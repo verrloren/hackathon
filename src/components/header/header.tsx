@@ -1,123 +1,96 @@
-// "use client";
-// import { Logo } from "./logo";
-// import { MenuNavbar } from "./menu-navbar";
-// import { NotificationNavbar } from "./notification-navbar";
-// import { ProfileImageNavbar } from "./profile-image-navbar";
-// import { MenuDropdown } from "@/components/header/menu-dropdown";
 
-// import useMenuDropdown from "@/hooks/useMenuDropdown";
-// import useNotificationDropdown from "@/hooks/useNotificationDropdown";
-// import { NotificationDropdown } from "./notification-dropdown";
+"use client";
 // import { useSession } from "next-auth/react";
-// // import { useEffect, useState } from "react";
-// // import { createNotification, getPriceDifference } from "@/utils/getUserBy";
-
-// interface HeaderProps {
-// 	id: string
-// 	message: string
-// }
-
-// function Header(notification: HeaderProps) {
-	
-//   const menuDropdown = useMenuDropdown();
-// 	const notificationDropdown = useNotificationDropdown();
-//   const { data: session } = useSession();
-
-//   // const [priceDifference, setPriceDifference] = useState<number>(0);
-
-//   // useEffect(() => {
-//   //   const fetchPriceDifference = async () => {
-//   //     if (session && session.user) {
-//   //       const difference = await getPriceDifference(session.user.id as string);
-//   //       setPriceDifference(difference);
-//   //     }
-//   //   };
-
-//   //   fetchPriceDifference();
-//   // }, []);
-
-//   // useEffect(() => {
-//   //   if (priceDifference > 5) {
-//   //     if (session && session.user) {
-//   //       createNotification({
-//   //         userId: session.user.id as string,
-//   //         message: `Price has increased by ${priceDifference}!`
-//   //       });
-//   //     }
-//   //   }
-//   // }, [priceDifference, session]);
-
-// 	// const { status } = useSession();
-
-// 	// const router = useRouter();
-
-//   // // Redirect to login page if not authenticated
-//   // if (status === "unauthenticated") {
-//   //   router.push("/auth/login");
-//   //   return null; // Prevent rendering the component
-//   // }
-
-
-//   return (
-//     <div className="relative mt-6 z-50 mx-auto w-[95%] h-16 ">
-//       <header className="w-full z-50 relative h-full bg-white/40 dark:bg-[#070707]/95 backdrop-blur-lg border border-border rounded-full">
-//         <div className="w-full h-full px-6 flex items-center justify-between">
-//           <Logo />
-//           {/* <Search /> */}
-//           <div className="flex flex-row gap-x-3 items-center">
-//             <NotificationNavbar />
-// 						{session && <ProfileImageNavbar />}
-//             <MenuNavbar />
-//           </div>
-//         </div>
-//       </header>
-//       {menuDropdown.isOpen && <MenuDropdown />}
-// 			{notificationDropdown.isOpen && <NotificationDropdown  notification={notification} />}
-//     </div>
-//   );
-// }
-// export default Header
-
-// src/components/header/header.tsx
-'use client'
-// import { useSession } from "next-auth/react";
-// import useMenuDropdown from "@/hooks/useMenuDropdown";
 // import useNotificationDropdown from "@/hooks/useNotificationDropdown";
 // import NotificationDropdown from "@/components/header/notification-dropdown";
-import { Logo } from "./logo";
 // import { NotificationNavbar } from "./notification-navbar";
 // import { ProfileImageNavbar } from "./profile-image-navbar";
-import { MenuNavbar } from "./menu-navbar";
-// import { MenuDropdown } from "./menu-dropdown";
 // import { NotificationProps } from "@/lib/types";
+import useMenuDropdown from "@/hooks/useMenuDropdown";
+import { Logo } from "./logo";
+import { MenuNavbar } from "./menu-navbar";
+import { MenuDropdown } from "./menu-dropdown";
+import { Button } from "../ui/button";
+import { useTheme } from "next-themes";
+import { LogOut, Moon, Sun } from "lucide-react";
+import { IoIosLogIn } from "react-icons/io";
+import toast from "react-hot-toast";
+import { signOut } from "next-auth/react";
+import {  useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { GoGraph } from "react-icons/go";
 
-// type HeaderProps = {
-//   notifications: NotificationProps[];
-// };
+
 
 export default function Header() {
-
   // const { data: session } = useSession();
-  // const menuDropdown = useMenuDropdown();
   // const notificationDropdown = useNotificationDropdown();
-
-
+  const { setTheme, theme } = useTheme();
+  const menuDropdown = useMenuDropdown();
+	const { data: session } = useSession();
+	const router = useRouter();
+	
 
   return (
-    <div className="sticky top-6 z-20 w-[95%] h-16 mt-4 mx-auto">
-      <header className="w-full sticky shadow-sm h-full z-20 bg-white/40 dark:bg-[#0A0A0A]/90 
-			backdrop-blur-md border border-border rounded-full">
-        <div className="w-full h-full px-6 flex items-center justify-between">
-          <Logo />
-          <div className="flex flex-row gap-x-3 items-center">
-            {/* <NotificationNavbar notifications={notifications} /> */}
-            {/* {session && <ProfileImageNavbar />} */}
-            <MenuNavbar />
-          </div>
-        </div>
-      </header>
-      {/* {menuDropdown.isOpen && <MenuDropdown />}
-      {notificationDropdown.isOpen && <NotificationDropdown notifications={notifications} />} */}
-    </div>
+    <header className="w-full h-36 bg-background px-16 md:px-20 lg:px-28 xl:px-32 2xl:px-36 flex items-center justify-between">
+      <Logo />
+      <div className="flex flex-row gap-x-3 items-center md:hidden">
+        {/* <NotificationNavbar notifications={notifications} /> */}
+        {/* {session && <ProfileImageNavbar />} */}
+        <MenuNavbar />
+      </div>
+      <div className="flex-row gap-x-2 items-center hidden md:flex">
+        <Button
+        	 onClick={() => router.push("/overview")}
+          className="w-full bg-transparent text-textGrayDark dark:text-textGray  
+							dark:hover:text-white hover:text-neutral-950 transition-colors hover:bg-transparent 
+							shadow-none gap-x-2 justify-start text-base"
+        >
+          <GoGraph size="14" className="text-neutral-800 dark:text-neutral-400" />
+        </Button>
+        <Button
+          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+          className="w-full bg-transparent text-textGrayDark dark:text-textGray  
+							dark:hover:text-white hover:text-neutral-950 transition-colors hover:bg-transparent 
+							shadow-none gap-x-2 justify-start  text-base"
+        >
+          {theme === "light" ? (
+            <Moon
+              size="14"
+              className="text-neutral-800 dark:text-neutral-400"
+            />
+          ) : (
+            <Sun className="text-neutral-800 dark:text-neutral-400" size="14" />
+          )}
+        </Button>
+
+						{session ? (
+                <Button
+                  className="w-full bg-transparent text-textGrayDark dark:text-textGray  
+								dark:hover:text-white hover:text-neutral-900 transition-colors hover:bg-transparent 
+								shadow-none gap-x-2 justify-start text-base"
+                  onClick={() => {
+                    signOut().then(() => toast.success("Logged out"));
+                    menuDropdown.onClose();
+                  }}
+                >
+                  <LogOut className="text-neutral-800 dark:text-neutral-400" size="14" />
+									Logout
+                </Button>
+              ) : (
+                <Button
+                  className="w-full bg-transparent text-textGrayDark dark:text-textGray  
+							dark:hover:text-white hover:text-neutral-900 transition-colors hover:bg-transparent 
+							shadow-none gap-x-2 justify-start ml-3 text-base"
+                  onClick={() => router.push("/auth/login")}
+                >
+                  <IoIosLogIn className="text-neutral-400" size="14" />
+									Login
+                </Button>
+              )}
+      </div>
+      {menuDropdown.isOpen && <MenuDropdown />}
+      {/* {notificationDropdown.isOpen && <NotificationDropdown notifications={notifications} />}  */}
+    </header>
   );
 }

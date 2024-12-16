@@ -1,42 +1,25 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Poppins } from "next/font/google";
+import { Outfit, Raleway, Manrope } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import ToasterProvider from "@/providers/toaster-provider";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "../../auth";
 import ModalProvider from "@/providers/modal-provider";
 import Providers from "@/components/providers";
-// import localFont from "next/font/local";
 
-
-// const waveHaus = localFont({
-// 	src: [
-// 		{
-// 			path: "../public/fonts/Wavehaus-Light.otf",
-// 			weight: "300",
-// 			style: "normal",
-// 		},
-// 		{
-// 			path: "../public/fonts/Wavehaus-Book.otf",
-// 			weight: "400",
-// 			style: "normal",
-// 		},
-// 		{
-// 			path: "../public/fonts/Wavehaus-SemiBold.otf",
-// 			weight: "600",
-// 			style: "normal",
-// 		},
-// 		{
-// 			path: "../public/fonts/Wavehaus-Bold.otf",
-// 			weight: "700",
-// 			style: "normal",
-// 		},
-// 	],
-// });
-
-const poppins = Poppins({
+const outfit = Outfit({
   weight: ["300", "400", "500", "600", "700", "800", "900"], // if single weight, otherwise you use array like [400, 500, 700],
+  style: "normal", // if single style, otherwise you use array like ['normal', 'italic']
+  subsets: ["latin"],
+});
+const raleway = Raleway({
+  weight: ["300", "400", "500", "600", "700", "800", "900"], // if single weight, otherwise you use array like [400, 500, 700],
+  style: "normal", // if single style, otherwise you use array like ['normal', 'italic']
+  subsets: ["latin"],
+});
+const manrope = Manrope({
+  weight: ["300", "400", "500", "600", "700", "800"], // if single weight, otherwise you use array like [400, 500, 700],
   style: "normal", // if single style, otherwise you use array like ['normal', 'italic']
   subsets: ["latin"],
 });
@@ -45,19 +28,6 @@ export const metadata: Metadata = {
   title: "Complexity",
   description: "Dinamic pricing",
 };
-
-// interface HotelData {
-// 	hotel_id: string;
-// 	room_name: string;
-// 	price: number;
-// 	meal: string;
-// 	yandex_name: string;
-// 	yandex_price: number;
-// 	price_diff: number;
-// 	percentage_price_diff: number;
-// 	checkin: string | number | null;
-// 	checkout: string | number | null;
-// }
 
 export default async function RootLayout({
   children,
@@ -69,8 +39,13 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body suppressHydrationWarning className={poppins.className}>
-        <ThemeProvider>
+      <body suppressHydrationWarning className={`${outfit} ${raleway} ${manrope}`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <SessionProvider session={session}>
             <Providers>
               <ModalProvider />

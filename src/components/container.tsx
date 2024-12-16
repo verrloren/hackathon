@@ -8,6 +8,6 @@ interface ContainerProps {
 
 export default function Container({ children }: ContainerProps) {
 	return (
-		<div className="mx-14 md:mx-20 lg:mx-26 xl:mx-42 2xl:mx-48">{children}</div>
+		<div className="mx-12 md:mx-16 lg:mx-24 xl:mx-28 2xl:mx-32">{children}</div>
 	)
 }

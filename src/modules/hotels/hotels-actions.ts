@@ -5,7 +5,6 @@ import { Hotel } from "@/lib/types"
 export const hotelsActions = {
 	baseKey: 'hotels',
 	getHotels: async (userId: string): Promise<Hotel[]> => {
-		console.log('GetHotels called with userId:', userId); // Debug input
 
 		if (!userId) {
 			console.error('No userId provided');
@@ -30,7 +29,6 @@ export const hotelsActions = {
 				}
 			})
 
-			console.log('Found hotels:', hotels); // Debug output
 			return hotels
 		} catch (error) {
 			console.error('Error fetching hotels:', error); // Debug errors
